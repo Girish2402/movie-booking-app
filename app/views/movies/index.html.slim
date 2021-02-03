@@ -1,0 +1,12 @@
+.row.justify-content-md-center
+  .col-sm-4
+    - if @movies
+        ul.list-group.list-group-flush
+          - @movies.each do |movie|
+            li.list-group-item.text-center
+              h4.text-right
+                = movie.name
+              .small.text-right
+                = link_to 'more >>', movies_path(movie)
+    - else
+        p No movies yet.

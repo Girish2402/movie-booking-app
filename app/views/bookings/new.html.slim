@@ -1,0 +1,88 @@
+.movie-container
+  label = @screening.movie.name
+  br
+  label
+    | price:
+    = @screening.price
+  input#movie value="#{@screening.price}" type="hidden"
+  input#screening-id value="#{@screening.id}" type="hidden"
+  input#booked-seats value="#{@booked_seats}" type="hidden"
+ul.showcase
+  li
+    .seat style="pointer-events: none;"
+    small Available
+  li
+    .seat.selected style="pointer-events: none;"
+    small Selected
+  li
+    .seat.occupied
+    small Occupied
+.col-md-8.offset-4
+  .screen.col-md-4
+    | Screen
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+  .row.pl-3
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+    .seat
+p.text
+  | You have selected
+  span#count  0  
+  | seats for a price of $
+  span#price 0  
+
+.row
+  .col-md-12.text-center
+    buttom#book-seat.btn.btn-primary.mt-5
+      | Book Seat
+
+= javascript_pack_tag 'booking'

@@ -1,0 +1,24 @@
+{
+  "application.js": "/packs/js/application-4346a376eb463373f861.js",
+  "application.js.map": "/packs/js/application-4346a376eb463373f861.js.map",
+  "booking.js": "/packs/js/booking-38731e99f05ece3c731b.js",
+  "booking.js.map": "/packs/js/booking-38731e99f05ece3c731b.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-4346a376eb463373f861.js"
+      ],
+      "js.map": [
+        "/packs/js/application-4346a376eb463373f861.js.map"
+      ]
+    },
+    "booking": {
+      "js": [
+        "/packs/js/booking-38731e99f05ece3c731b.js"
+      ],
+      "js.map": [
+        "/packs/js/booking-38731e99f05ece3c731b.js.map"
+      ]
+    }
+  }
+}

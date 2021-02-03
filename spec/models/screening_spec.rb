@@ -11,7 +11,7 @@ RSpec.describe Screening do
       theatre = Theatre.create! name: 'Theatre 1'
       movie = Movie.create! name: 'Movie 1'
       screening = Screening.create! start_at: "14:00", theatre: theatre, movie: movie
-      expect(screening.start_time).to eq("14:00")
+      expect(screening.start_time).to eq("14:00 pm")
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.describe Screening do
 
   describe '#seat_available' do
     it 'return number of available seat for related movie screening' do
-      capacity = 50
+      capacity = 48
       theatre = Theatre.create! name: 'Theatre 1', capacity: capacity
       movie = Movie.create! name: 'Movie 1'
       screening = Screening.create! start_at: "22:00", theatre: theatre, movie: movie
@@ -71,14 +71,15 @@ RSpec.describe Screening do
 
   describe '#seat_available?' do
     it 'return of availability for related movie screening' do
-      capacity = 1
+      capacity = 48
       theatre = Theatre.create! name: 'Theatre 1', capacity: capacity
       movie = Movie.create! name: 'Movie 1'
       screening = Screening.create! start_at: "22:00", theatre: theatre, movie: movie
       user = User.create! password: 'password', email: 'email@jlkasd.com'
       expect(screening.seat_available?).to be_truthy
-      Booking.create! user: User.first, screening: screening
-      expect(screening.seat_available?).to be_falsey
+      booking = Booking.create! user: User.first, screening: screening
+      booking.seats.create!(seat_number: 1, screening_id: screening.id)
+      expect(screening.seat_available?).to be_truthy
     end
   end
 end

@@ -1,0 +1,895 @@
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "bookings"[0m
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE TABLE "bookings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "screening_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE  INDEX "index_bookings_on_screening_id" ON "bookings" ("screening_id")[0m
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE  INDEX "index_bookings_on_user_id" ON "bookings" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "movies"[0m
+  [1m[35m (12.9ms)[0m  [1m[35mCREATE TABLE "movies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "screenings"[0m
+  [1m[35m (12.7ms)[0m  [1m[35mCREATE TABLE "screenings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "movie_id" integer, "theatre_id" integer, "start_at" time, "price" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (12.7ms)[0m  [1m[35mCREATE  INDEX "index_screenings_on_movie_id" ON "screenings" ("movie_id")[0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE  INDEX "index_screenings_on_theatre_id" ON "screenings" ("theatre_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "seats"[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE "seats" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "seat_number" integer, "booking_id" integer, "screening_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE  INDEX "index_seats_on_booking_id" ON "seats" ("booking_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "theatres"[0m
+  [1m[35m (13.0ms)[0m  [1m[35mCREATE TABLE "theatres" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "capacity" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar NOT NULL, "password_digest" varchar, "gender" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "is_admin" boolean DEFAULT 0)[0m
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE  INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (11.6ms)[0m  [1m[35mCREATE  INDEX "index_users_on_gender" ON "users" ("gender")[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (9.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210307022111)[0m
+  [1m[35m (9.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210305231330),
+(20210305231331),
+(20210306000037),
+(20210306011841),
+(20210306012520),
+(20210307022110);
+
+[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-02-03 17:32:24.123458"], ["updated_at", "2021-02-03 17:32:24.123458"]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "ecd0dd4ede74c2b2434edbcc0de238f51a131f87"], ["created_at", "2021-02-03 17:32:24.141024"], ["updated_at", "2021-02-03 17:32:24.141024"]]
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:32:24.249188"], ["updated_at", "2021-02-03 17:32:24.249188"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:32:24.250883"], ["updated_at", "2021-02-03 17:32:24.250883"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:32:24.252672"], ["updated_at", "2021-02-03 17:32:24.252672"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:32:24.274536"], ["updated_at", "2021-02-03 17:32:24.274536"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:32:24.276218"], ["updated_at", "2021-02-03 17:32:24.276218"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:32:24.277643"], ["updated_at", "2021-02-03 17:32:24.277643"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$34L.jbo1Ay01z7QwIM0Nou4C5lHONAdeGQEBaH8v7kZzS6s7dh8su"], ["created_at", "2021-02-03 17:32:24.292792"], ["updated_at", "2021-02-03 17:32:24.292792"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:32:24.300669"], ["updated_at", "2021-02-03 17:32:24.300669"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:32:24.301786"], ["updated_at", "2021-02-03 17:32:24.301786"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:32:24.303368"], ["updated_at", "2021-02-03 17:32:24.303368"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$SngXC/sMiVVYfKJXbgWCYugDVfEeBMVMyQRDwDhRNOr7EDVboJeSK"], ["created_at", "2021-02-03 17:32:24.306926"], ["updated_at", "2021-02-03 17:32:24.306926"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:32:24.313669"], ["updated_at", "2021-02-03 17:32:24.313669"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 50], ["created_at", "2021-02-03 17:32:24.328697"], ["updated_at", "2021-02-03 17:32:24.328697"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:32:24.329991"], ["updated_at", "2021-02-03 17:32:24.329991"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:32:24.331050"], ["updated_at", "2021-02-03 17:32:24.331050"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 1], ["created_at", "2021-02-03 17:32:24.336039"], ["updated_at", "2021-02-03 17:32:24.336039"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:32:24.337291"], ["updated_at", "2021-02-03 17:32:24.337291"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:32:24.338620"], ["updated_at", "2021-02-03 17:32:24.338620"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$qvsDs9Ieuf45eqK8RfR5QuniTcCMJYbn71d6CyK5tWFiNHAK51d3q"], ["created_at", "2021-02-03 17:32:24.342177"], ["updated_at", "2021-02-03 17:32:24.342177"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:32:24.344179"], ["updated_at", "2021-02-03 17:32:24.344179"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$sBZ.KD9pQPdu2.PUgt3sLuTgFrIfl7Ap7.NcDgT9oSW1c611.3g/a"], ["created_at", "2021-02-03 17:32:24.361754"], ["updated_at", "2021-02-03 17:32:24.361754"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:33:42.941655"], ["updated_at", "2021-02-03 17:33:42.941655"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:33:42.943195"], ["updated_at", "2021-02-03 17:33:42.943195"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:33:42.944738"], ["updated_at", "2021-02-03 17:33:42.944738"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:33:42.961223"], ["updated_at", "2021-02-03 17:33:42.961223"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:33:42.962599"], ["updated_at", "2021-02-03 17:33:42.962599"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:33:42.963725"], ["updated_at", "2021-02-03 17:33:42.963725"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$8mEY.MQ9UaaRsQB/mBWNr.1qKDqv/08enU9VraA1KMNeVOsrz8Yni"], ["created_at", "2021-02-03 17:33:42.973403"], ["updated_at", "2021-02-03 17:33:42.973403"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:33:42.980231"], ["updated_at", "2021-02-03 17:33:42.980231"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:33:42.981442"], ["updated_at", "2021-02-03 17:33:42.981442"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:33:42.982725"], ["updated_at", "2021-02-03 17:33:42.982725"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$o7SEnENNw5S3Egj5ywIe3.dmSyazc/v/bplmE.jDszb.cWxWcH5qa"], ["created_at", "2021-02-03 17:33:42.986530"], ["updated_at", "2021-02-03 17:33:42.986530"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:33:42.991932"], ["updated_at", "2021-02-03 17:33:42.991932"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 50], ["created_at", "2021-02-03 17:33:43.002410"], ["updated_at", "2021-02-03 17:33:43.002410"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:33:43.003359"], ["updated_at", "2021-02-03 17:33:43.003359"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:33:43.004324"], ["updated_at", "2021-02-03 17:33:43.004324"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 1], ["created_at", "2021-02-03 17:33:43.008375"], ["updated_at", "2021-02-03 17:33:43.008375"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:33:43.009417"], ["updated_at", "2021-02-03 17:33:43.009417"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:33:43.010420"], ["updated_at", "2021-02-03 17:33:43.010420"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$iNgct6UH2GZzVICNxgiVzulxZZF6so9VUR9n4vpg6LSJ1oYscaJmq"], ["created_at", "2021-02-03 17:33:43.013288"], ["updated_at", "2021-02-03 17:33:43.013288"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:33:43.015031"], ["updated_at", "2021-02-03 17:33:43.015031"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$Ut1NyJeRaKwZxYxqri8QCuOmE.1dnJ1kr.2bXnpCF9c8AaSPsbf2y"], ["created_at", "2021-02-03 17:33:43.027973"], ["updated_at", "2021-02-03 17:33:43.027973"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:34:10.812505"], ["updated_at", "2021-02-03 17:34:10.812505"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:34:10.814156"], ["updated_at", "2021-02-03 17:34:10.814156"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:34:10.815502"], ["updated_at", "2021-02-03 17:34:10.815502"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:34:10.821353"], ["updated_at", "2021-02-03 17:34:10.821353"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:34:10.822514"], ["updated_at", "2021-02-03 17:34:10.822514"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:34:10.823657"], ["updated_at", "2021-02-03 17:34:10.823657"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$ScPK0Xya2WMFUbBcQhFpLOqfrDDcFiUXknnsNH84smnUWZ/M3QBOi"], ["created_at", "2021-02-03 17:34:10.833382"], ["updated_at", "2021-02-03 17:34:10.833382"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:34:10.839734"], ["updated_at", "2021-02-03 17:34:10.839734"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:34:10.840856"], ["updated_at", "2021-02-03 17:34:10.840856"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:34:10.841966"], ["updated_at", "2021-02-03 17:34:10.841966"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$.dHZCj1TPYSSyRThMiZOkeFrSHzqqFLBG8zPLbsMmfYCQLx3.nXKe"], ["created_at", "2021-02-03 17:34:10.845167"], ["updated_at", "2021-02-03 17:34:10.845167"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.2ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:34:10.850940"], ["updated_at", "2021-02-03 17:34:10.850940"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 50], ["created_at", "2021-02-03 17:34:10.862438"], ["updated_at", "2021-02-03 17:34:10.862438"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:34:10.863485"], ["updated_at", "2021-02-03 17:34:10.863485"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:34:10.864483"], ["updated_at", "2021-02-03 17:34:10.864483"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 1], ["created_at", "2021-02-03 17:34:10.881944"], ["updated_at", "2021-02-03 17:34:10.881944"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:34:10.883246"], ["updated_at", "2021-02-03 17:34:10.883246"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:34:10.884338"], ["updated_at", "2021-02-03 17:34:10.884338"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$QebRkyfCi30IoQbx9RQ33OobaoKxd/4A29rqG0SX/TAzL5njDaoIu"], ["created_at", "2021-02-03 17:34:10.887362"], ["updated_at", "2021-02-03 17:34:10.887362"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:34:10.889184"], ["updated_at", "2021-02-03 17:34:10.889184"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$XBYNvonZ/HehyyhqwM27XupGSmB9owHkWWRci1FRj7WvgN32keyH6"], ["created_at", "2021-02-03 17:34:10.902845"], ["updated_at", "2021-02-03 17:34:10.902845"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:35:04.379756"], ["updated_at", "2021-02-03 17:35:04.379756"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:35:04.381220"], ["updated_at", "2021-02-03 17:35:04.381220"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:35:04.382837"], ["updated_at", "2021-02-03 17:35:04.382837"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:35:04.386743"], ["updated_at", "2021-02-03 17:35:04.386743"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:35:04.387964"], ["updated_at", "2021-02-03 17:35:04.387964"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:35:04.389048"], ["updated_at", "2021-02-03 17:35:04.389048"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$w0qIfeLdkKdgyPfywwl3uuVZCut4VZdVmAxoQVbpUqj2d5ToMSsnS"], ["created_at", "2021-02-03 17:35:04.399248"], ["updated_at", "2021-02-03 17:35:04.399248"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:35:04.405526"], ["updated_at", "2021-02-03 17:35:04.405526"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:35:04.406695"], ["updated_at", "2021-02-03 17:35:04.406695"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:35:04.407877"], ["updated_at", "2021-02-03 17:35:04.407877"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$CQj9xlVci6y9LI8pyXzZeepSDgMf25ykYPeXRwRBT6AdlXCB3j6BG"], ["created_at", "2021-02-03 17:35:04.411272"], ["updated_at", "2021-02-03 17:35:04.411272"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:35:04.417013"], ["updated_at", "2021-02-03 17:35:04.417013"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 48], ["created_at", "2021-02-03 17:35:04.429395"], ["updated_at", "2021-02-03 17:35:04.429395"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:35:04.430682"], ["updated_at", "2021-02-03 17:35:04.430682"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:35:04.432341"], ["updated_at", "2021-02-03 17:35:04.432341"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 1], ["created_at", "2021-02-03 17:35:04.437078"], ["updated_at", "2021-02-03 17:35:04.437078"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:35:04.438252"], ["updated_at", "2021-02-03 17:35:04.438252"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:35:04.439364"], ["updated_at", "2021-02-03 17:35:04.439364"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$RRlYjI8gQKx5E.463k8XC.BfggszXHcug/6olSM9rMebUwFC54pfu"], ["created_at", "2021-02-03 17:35:04.442431"], ["updated_at", "2021-02-03 17:35:04.442431"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:35:04.444468"], ["updated_at", "2021-02-03 17:35:04.444468"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$1gL6Z4Ud9nFfFMHIV53H8.oriF02MzlWnJaCz2Wc2asMLTdXkOnLy"], ["created_at", "2021-02-03 17:35:04.472487"], ["updated_at", "2021-02-03 17:35:04.472487"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.3ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:09.488341"], ["updated_at", "2021-02-03 17:38:09.488341"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:09.490431"], ["updated_at", "2021-02-03 17:38:09.490431"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.2ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:09.492078"], ["updated_at", "2021-02-03 17:38:09.492078"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:09.495760"], ["updated_at", "2021-02-03 17:38:09.495760"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:09.497117"], ["updated_at", "2021-02-03 17:38:09.497117"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:09.498201"], ["updated_at", "2021-02-03 17:38:09.498201"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$brutAsnV20ExJarcQkKLq.zjo3eK5wMcgQD8HAAaAEHJuByUHxWz2"], ["created_at", "2021-02-03 17:38:09.507704"], ["updated_at", "2021-02-03 17:38:09.507704"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:09.514030"], ["updated_at", "2021-02-03 17:38:09.514030"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:09.515071"], ["updated_at", "2021-02-03 17:38:09.515071"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:09.516112"], ["updated_at", "2021-02-03 17:38:09.516112"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$3lL0JkFhcHZv2oM9jIM5WOwKBXzycoG87xeN3Kf9K.UBRIHfu0qcy"], ["created_at", "2021-02-03 17:38:09.518952"], ["updated_at", "2021-02-03 17:38:09.518952"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.2ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:09.525887"], ["updated_at", "2021-02-03 17:38:09.525887"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 48], ["created_at", "2021-02-03 17:38:09.536285"], ["updated_at", "2021-02-03 17:38:09.536285"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:09.537285"], ["updated_at", "2021-02-03 17:38:09.537285"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:38:09.538311"], ["updated_at", "2021-02-03 17:38:09.538311"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 48], ["created_at", "2021-02-03 17:38:09.541975"], ["updated_at", "2021-02-03 17:38:09.541975"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:09.542942"], ["updated_at", "2021-02-03 17:38:09.542942"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:38:09.543940"], ["updated_at", "2021-02-03 17:38:09.543940"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$/x9uHFI4toaMqtC.Ko1bnuZOk2WAu9vjT/nL.mp/bNUcemtGH.uUO"], ["created_at", "2021-02-03 17:38:09.546741"], ["updated_at", "2021-02-03 17:38:09.546741"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:09.548386"], ["updated_at", "2021-02-03 17:38:09.548386"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSeat Create (0.2ms)[0m  [1m[32mINSERT INTO "seats" ("seat_number", "booking_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["seat_number", 1], ["booking_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:09.554600"], ["updated_at", "2021-02-03 17:38:09.554600"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$tyUz/V3NEwK5MyePAAoFxO6a30CMQ.fnjiA7oBkaasqpH3dGHQ/d6"], ["created_at", "2021-02-03 17:38:09.582798"], ["updated_at", "2021-02-03 17:38:09.582798"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (5.8ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:34.526377"], ["updated_at", "2021-02-03 17:38:34.526377"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:34.527926"], ["updated_at", "2021-02-03 17:38:34.527926"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:34.529065"], ["updated_at", "2021-02-03 17:38:34.529065"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:34.531588"], ["updated_at", "2021-02-03 17:38:34.531588"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:34.532565"], ["updated_at", "2021-02-03 17:38:34.532565"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:34.533606"], ["updated_at", "2021-02-03 17:38:34.533606"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$bSJWJwVOMZ2q9MtCwjkFROgRhZAXzm7AC6PUw8hFiyoegPRhFM4Mi"], ["created_at", "2021-02-03 17:38:34.543932"], ["updated_at", "2021-02-03 17:38:34.543932"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 17:38:34.550926"], ["updated_at", "2021-02-03 17:38:34.550926"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:34.552135"], ["updated_at", "2021-02-03 17:38:34.552135"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 14:00:00"], ["created_at", "2021-02-03 17:38:34.553283"], ["updated_at", "2021-02-03 17:38:34.553283"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$EuZiHQEXMdCJKHlGsoja/uPThQUhyouEpuFfGEL2eUmHBKphn6qvC"], ["created_at", "2021-02-03 17:38:34.556182"], ["updated_at", "2021-02-03 17:38:34.556182"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:34.561535"], ["updated_at", "2021-02-03 17:38:34.561535"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mBooking Load (0.0ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."screening_id" = ? AND "bookings"."user_id" = ? ORDER BY "bookings"."id" ASC LIMIT ?[0m  [["screening_id", 1], ["user_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 11:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Theatre 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 06:30:00"], ["updated_at", "2021-02-03 06:30:00"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.2ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 48], ["created_at", "2021-02-03 17:38:34.571835"], ["updated_at", "2021-02-03 17:38:34.571835"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.2ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:34.573045"], ["updated_at", "2021-02-03 17:38:34.573045"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:38:34.574471"], ["updated_at", "2021-02-03 17:38:34.574471"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTheatre Create (0.1ms)[0m  [1m[32mINSERT INTO "theatres" ("name", "capacity", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["name", "Theatre 1"], ["capacity", 48], ["created_at", "2021-02-03 17:38:34.579311"], ["updated_at", "2021-02-03 17:38:34.579311"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mMovie Create (0.1ms)[0m  [1m[32mINSERT INTO "movies" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Movie 1"], ["created_at", "2021-02-03 17:38:34.580421"], ["updated_at", "2021-02-03 17:38:34.580421"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mScreening Create (0.1ms)[0m  [1m[32mINSERT INTO "screenings" ("movie_id", "theatre_id", "start_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["movie_id", 1], ["theatre_id", 1], ["start_at", "2000-01-01 22:00:00"], ["created_at", "2021-02-03 17:38:34.581485"], ["updated_at", "2021-02-03 17:38:34.581485"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "email@jlkasd.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "email@jlkasd.com"], ["password_digest", "$2a$04$N61InRM143VMtUz8A/71Me0/Ct2vTfu.TwHH71ZObWLzoBt9zcjue"], ["created_at", "2021-02-03 17:38:34.584418"], ["updated_at", "2021-02-03 17:38:34.584418"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.1ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mBooking Create (0.1ms)[0m  [1m[32mINSERT INTO "bookings" ("user_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:34.586314"], ["updated_at", "2021-02-03 17:38:34.586314"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSeat Create (0.1ms)[0m  [1m[32mINSERT INTO "seats" ("seat_number", "booking_id", "screening_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["seat_number", 1], ["booking_id", 1], ["screening_id", 1], ["created_at", "2021-02-03 17:38:34.592392"], ["updated_at", "2021-02-03 17:38:34.592392"]]
+  [1m[35m (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mSeat Load (0.0ms)[0m  [1m[34mSELECT "seats"."seat_number" FROM "seats" WHERE "seats"."screening_id" = ?[0m  [["screening_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "gilang@gmail.com"], ["password_digest", "$2a$04$fmuBre7/QDMm/fOn7CX.YezgkRXiIjVo7xxnraaFDcJrQv9L2dJEa"], ["created_at", "2021-02-03 17:38:34.605900"], ["updated_at", "2021-02-03 17:38:34.605900"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "gilang@gmail.com"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "@bad.email.com"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
